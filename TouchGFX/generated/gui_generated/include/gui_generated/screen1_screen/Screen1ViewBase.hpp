@@ -12,7 +12,7 @@
 #include <touchgfx/containers/progress_indicators/CircleProgress.hpp>
 #include <touchgfx/widgets/canvas/PainterRGB565Bitmap.hpp>
 #include <touchgfx/containers/progress_indicators/ImageProgress.hpp>
-#include <touchgfx/containers/progress_indicators/TextProgress.hpp>
+#include <touchgfx/widgets/TextArea.hpp>
 
 class Screen1ViewBase : public touchgfx::View<Screen1Presenter>
 {
@@ -30,13 +30,17 @@ protected:
      * Member Declarations
      */
     touchgfx::BoxWithBorder boxWithBorder1;
+    touchgfx::BoxWithBorder boxWithBorder2;
     touchgfx::TextAreaWithOneWildcard textArea1;
     touchgfx::CircleProgress circleProgress1;
     touchgfx::PainterRGB565Bitmap circleProgress1Painter;
     touchgfx::ImageProgress imageProgress1;
     touchgfx::TextAreaWithOneWildcard textArea2;
     touchgfx::TextAreaWithOneWildcard textArea3;
-    touchgfx::TextProgress textProgress1;
+    touchgfx::TextArea textArea4;
+    touchgfx::CircleProgress circleProgress2;
+    touchgfx::PainterRGB565Bitmap circleProgress2Painter;
+    touchgfx::TextAreaWithOneWildcard textArea5;
 
     /*
      * Wildcard Buffers
@@ -47,6 +51,8 @@ protected:
     touchgfx::Unicode::UnicodeChar textArea2Buffer[TEXTAREA2_SIZE];
     static const uint16_t TEXTAREA3_SIZE = 29;
     touchgfx::Unicode::UnicodeChar textArea3Buffer[TEXTAREA3_SIZE];
+    static const uint16_t TEXTAREA5_SIZE = 29;
+    touchgfx::Unicode::UnicodeChar textArea5Buffer[TEXTAREA5_SIZE];
 
 private:
 

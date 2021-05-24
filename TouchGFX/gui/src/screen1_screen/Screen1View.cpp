@@ -6,7 +6,6 @@
 
 extern uint8_t uartMsgBuf[UART_BUF_SIZE];
 
-// TESTING 123 CHANGES FOR GIT
 Screen1View::Screen1View()
 {
 
@@ -22,16 +21,19 @@ void Screen1View::tearDownScreen()
     Screen1ViewBase::tearDownScreen();
 }
 
-void Screen1View::uartMsgRdy() // put all sscanf functions for widgets in here!
+void Screen1View::uartMsgRdy()
 {
-	int counterNumber = -1; // initializing counter number for dial
+	int counterNumber = -1;
 	int rpm = -1;
 	int inputVolt = -1;
+
 
 	if(uartMsgBuf[0] == 0)
 		return;
 	memset(&textArea1Buffer, 0, TEXTAREA1_SIZE); // initializing text area 1 to be 0
 	memset(&textArea2Buffer, 0, TEXTAREA2_SIZE); // initializing text area 2 to be 0
+	memset(&textArea3Buffer, 0, TEXTAREA3_SIZE); // initializing text area 3 to be 0
+	memset(&textArea5Buffer, 0, TEXTAREA5_SIZE); // initializing text area 3 to be 0
 
 	/*
 	 * For the next line of code, we need to create if statements for each widget, so that we can set
@@ -42,7 +44,12 @@ void Screen1View::uartMsgRdy() // put all sscanf functions for widgets in here!
 	// If statement for circleProgress1
 	if(sscanf((const char*)uartMsgBuf, "Testing %d\r\n", &counterNumber) == 1)
 	{
-		circleProgress1.setValue(counterNumber);  // how to set the circle progress widget value
+		// Testing Meter Widget
+		char testingString[6];
+		memset(testingString, 0, 6);
+		sprintf(testingString, "%d", counterNumber);
+		Unicode::strncpy(textArea5Buffer, (char*)testingString, TEXTAREA5_SIZE-1);
+		circleProgress2.setValue(counterNumber);
 		//imageProgress1.setValue(counterNumber);  // how to set image progress widget value
 		//textProgress1.setValue(counterNumber);  // how to set image w/ text progress widget value
 		//lineProgress1.setValue(counterNumber);  // how to set line progress widget value
@@ -60,20 +67,29 @@ void Screen1View::uartMsgRdy() // put all sscanf functions for widgets in here!
 	 */
 	if(sscanf((const char*)uartMsgBuf, "RPM: %d\r\n", &rpm) == 1) 	// RPM If-statement
 	{
-		textProgress1.setValue(rpm);
-		Unicode::strncpy(textArea2Buffer, (char*) uartMsgBuf, TEXTAREA2_SIZE - 1);
+		char rpmString[6];
+		memset(rpmString, 0, 6);
+		sprintf(rpmString, "%d", rpm);
+		Unicode::strncpy(textArea2Buffer, (char*)rpmString, TEXTAREA2_SIZE-1);
+		circleProgress1.setValue(rpm);
+	}
+
+	if(sscanf((const char*)uartMsgBuf, "Input Volt: %d\r\n", &inputVolt) == 1) 	// Input Voltage If-statement
+	{
+		char inputVoltString[6];
+		memset(inputVoltString, 0, 6);
+		sprintf(inputVoltString, "%d", inputVolt);
+		Unicode::strncpy(textArea3Buffer, (char*)inputVoltString, TEXTAREA3_SIZE-1);
+		imageProgress1.setValue(inputVolt);
 	}
 
 
-	Unicode::strncpy(textArea1Buffer, (char*) uartMsgBuf, TEXTAREA1_SIZE - 1);
-
-	// adding wildcard text values for other two text areas - DONT REMEMBER HOW TO ADD WILDCARD TEXT VALUES
-	//Unicode::strncpy(textArea2Buffer, (char*) uartMsgBuf, TEXTAREA2_SIZE - 1);
-	//Unicode::strncpy(textArea3Buffer, (char*) uartMsgBuf, TEXTAREA3_SIZE - 1);
-
+	Unicode::strncpy(textArea1Buffer, (char*) uartMsgBuf, TEXTAREA1_SIZE - 1); // updates the Rx box
 	textArea1Buffer[28] = '\0'; // make sure last index is null
-	textArea1.invalidate(); // always invalidate each variable before finishing updating screen
+	textArea5.invalidate();
 	textArea2.invalidate();
 	textArea3.invalidate();
-	// changes as of 123
+	//circleProgress1.invalidate();
+	//imageProgress1.invalidate();
+	textArea1.invalidate(); // always invalidate each variable before finishing updating screen
 }
