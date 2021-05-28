@@ -80,12 +80,11 @@ Screen1ViewBase::Screen1ViewBase()
     circleProgress2.setPainter(circleProgress2Painter);
     circleProgress2.setValue(20);
 
-    textArea5.setXY(34, 73);
+    textArea5.setPosition(18, 73, 51, 32);
     textArea5.setColor(touchgfx::Color::getColorFrom24BitRGB(255, 0, 0));
     textArea5.setLinespacing(0);
     textArea5Buffer[0] = 0;
     textArea5.setWildcard(textArea5Buffer);
-    textArea5.resizeToCurrentText();
     textArea5.setTypedText(touchgfx::TypedText(T_SINGLEUSEID5));
 
     add(boxWithBorder1);

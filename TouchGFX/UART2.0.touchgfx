@@ -268,16 +268,16 @@
               "Blue": 0
             },
             "Alpha": 255,
-            "AutoSize": true,
+            "AutoSize": false,
             "LineSpacing": 0,
             "Wildcard1": {
               "UseBuffer": true,
               "BufferSize": 29
             },
             "Name": "textArea5",
-            "X": 34,
+            "X": 18,
             "Y": 73,
-            "Width": 18,
+            "Width": 51,
             "Height": 32,
             "Type": "TextArea",
             "Visible": true,
